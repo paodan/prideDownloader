@@ -20,7 +20,6 @@
 #' projectDetail(c("PXD000001", "PXD000002"))
 #' }
 #' }
-################### count ###################
 projectDetail = function(accession = c("PXD000001", "PXD000002"),
                          accessionRownames = TRUE){
   .projectDetail = function(acc){

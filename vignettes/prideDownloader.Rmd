@@ -15,7 +15,7 @@ vignette: >
 ---
 
 
-```{r setup, include = FALSE}
+```{r setup, eval = FALSE}
 
 #### run test ####
 # speciesFilter is the for species, 9606 is homo sapiens.

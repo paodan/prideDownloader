@@ -17,17 +17,35 @@
 #' }
 assayCount = function(projectAccession = c("PXD000001", "PXD008959"),
                       accessionRownames = TRUE){
-  .assayCount = function(acc){
-    # This URL is provided in PRIDE homepage -> Access data -> Web Service
-    url = paste0('https://www.ebi.ac.uk:443/pride/ws/archive/assay/count/project/', acc)
-    # https://www.ebi.ac.uk:443/pride/ws/archive/assay/count/project/PXD000001
-    cat("The URL is:", url, "\n")
-    count = as.numeric(getURL(url))
-    return(count)
+  # .assayCount = function(acc){
+  #   # This URL is provided in PRIDE homepage -> Access data -> Web Service
+  #   url = paste0('https://www.ebi.ac.uk:443/pride/ws/archive/assay/count/project/', acc)
+  #   # https://www.ebi.ac.uk:443/pride/ws/archive/assay/count/project/PXD000001
+  #   cat("The URL is:", url, "\n")
+  #   count = suppressWarnings(as.numeric(getURL(url)))
+  #   return(count)
+  # }
+  # res = data.frame(projectAccession = projectAccession,
+  #                  fileNbr = unlist(lapply(projectAccession, function(x){
+  #                    Sys.sleep(0.5)
+  #                    .assayCount(x)
+  #                  })))
+  # if (accessionRownames)
+  #   rownames(res) = projectAccession
+  # return(res)
+  #
+
+
+  if (length(projectAccession) < 1){
+    stop("Must provide at least one projectAccession!")
   }
-  res = data.frame(projectAccession = projectAccession,
-                   assayNbr = unlist(lapply(projectAccession, .assayCount)))
+
+  baseURL = "https://www.ebi.ac.uk:443/pride/ws/archive/assay/count/project/"
+  count = entryCount(baseURL, projectAccession)
+
+  colnames(count) = c("projectAccession", "assayNbr")
   if (accessionRownames)
-    rownames(res) = projectAccession
-  return(res)
+    rownames(count) = projectAccession
+  return(count)
+
 }
