@@ -11,6 +11,7 @@
 #' @return a status of extraction, and extracted files in the savePath.
 #' @import tools
 #' @import limma
+#' @export
 #' @examples {
 #' \dontrun{
 #' extractFileFromZip(c("file1.zip", "file2.zip"), zipPath = "./",
