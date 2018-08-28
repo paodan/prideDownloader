@@ -65,7 +65,7 @@ prideDownload = function(prideLinks,
     if (!file.exists(fileKi)){
       download.file(ki, fileKi)
     } else {
-      cat("Exist", fileKi, "\n")
+      message("Exist ", fileKi, "\n")
     }
 
     fileDown = c(fileDown, fileKi)

@@ -9,6 +9,8 @@
 #' The default is NULL, which will automatically extract the first part of zipFileName
 #' seperated by "_".
 #' @return a status of extraction, and extracted files in the savePath.
+#' @import tools
+#' @import limma
 #' @examples {
 #' \dontrun{
 #' extractFileFromZip(c("file1.zip", "file2.zip"), zipPath = "./",
@@ -42,7 +44,8 @@ extractFileFromZip = function(zipFileName ="PXD008222_search_dummy_txt.zip",
     resFileName = resFileName[, ncol(resFileName)]
 
     if (is.null(filePrefix)){
-      filePrefix = paste0(limma::strsplit2(basename(zipFileName), "_")[1,1], "_")
+      # filePrefix = paste0(limma::strsplit2(basename(zipFileName), "_")[1,1], "_")
+      filePrefix = paste0(tools::file_path_sans_ext(basename(zipFileName)), "_")
     }
 
     extractCMD = paste0('unzip -j "', fullName, '" "',
