@@ -11,6 +11,7 @@
 #' @return a status of extraction, and extracted files in the savePath.
 #' @import tools
 #' @import limma
+#' @export
 #' @examples {
 #' \dontrun{
 #' extractFileFromZip(c("file1.zip", "file2.zip"), zipPath = "./",
@@ -20,6 +21,7 @@
 #'                    filePrefix = NULL)
 #' }
 #' }
+#'
 extractFileFromZip = function(zipFileName ="PXD008222_search_dummy_txt.zip",
                               zipPath = "./",
                               fileNamePattern = "proteinGroup",
