@@ -45,26 +45,27 @@ extractFileFromZip = function(zipFileName ="PXD008222_search_dummy_txt.zip",
       # resFileName = limma::strsplit2(resFileInfo, " ")
       resFileName = limma::strsplit2(resFileInfo, "   ")
       resFileName = resFileName[, ncol(resFileName)]
-    } else {
-      status = NA
-    }
-    if (is.null(filePrefix)){
-      # filePrefix = paste0(limma::strsplit2(basename(zipFileName), "_")[1,1], "_")
-      filePrefix = paste0(tools::file_path_sans_ext(basename(zipFileName)), "_")
-    }
-    extractCMD = paste0('unzip -j "', fullName, '" "',
-                        resFileName, '" -d "', savePath, '/',
-                        filePrefix,
-                        basename(resFileName), '" -o')
-    status = c()
-    if (length(extractCMD) > 0){
+
+      if (is.null(filePrefix)){
+        # filePrefix = paste0(limma::strsplit2(basename(zipFileName), "_")[1,1], "_")
+        filePrefix = paste0(tools::file_path_sans_ext(basename(zipFileName)), "_")
+      }
+      extractCMD = paste0('unzip -j "', fullName, '" "',
+                          resFileName, '" -d "', savePath, '/',
+                          filePrefix,
+                          basename(resFileName), '" -o')
+      status = c()
+      # if (length(extractCMD) > 0){
       for(mi in extractCMD){
         tmp = system(mi, intern = TRUE, input = "o", ignore.stderr = TRUE)
         s = attributes(tmp[1])$status
         status = c(status, (if(is.null(s)) 0 else s))
       }
       names(status) =  basename(resFileName)
+      # } else {
+      # }
     } else {
+      status = NA
     }
     return(status)
   }
