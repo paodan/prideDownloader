@@ -41,15 +41,17 @@ extractFileFromZip = function(zipFileName ="PXD008222_search_dummy_txt.zip",
     fileListInZip = system(cmd, intern = T)
     resFileInfo = grep(fileNamePattern, fileListInZip, value = T, ignore.case = ignore.case)
 
-    # resFileName = limma::strsplit2(resFileInfo, " ")
-    resFileName = limma::strsplit2(resFileInfo, "   ")
-    resFileName = resFileName[, ncol(resFileName)]
-
+    if(length(resFileInfo) > 0){
+      # resFileName = limma::strsplit2(resFileInfo, " ")
+      resFileName = limma::strsplit2(resFileInfo, "   ")
+      resFileName = resFileName[, ncol(resFileName)]
+    } else {
+      status = NA
+    }
     if (is.null(filePrefix)){
       # filePrefix = paste0(limma::strsplit2(basename(zipFileName), "_")[1,1], "_")
       filePrefix = paste0(tools::file_path_sans_ext(basename(zipFileName)), "_")
     }
-
     extractCMD = paste0('unzip -j "', fullName, '" "',
                         resFileName, '" -d "', savePath, '/',
                         filePrefix,
