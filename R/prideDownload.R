@@ -62,7 +62,12 @@ prideDownload = function(prideLinks,
     cat(t, "/",len,": Downloading", ki,"\n")
     t = t+1
     fileKi = paste0(path, basename(dirname(ki)), "_", basename(ki))
-    download.file(ki, fileKi)
+    if (!file.exists(fileKi)){
+      download.file(ki, fileKi)
+    } else {
+      cat("Exist", fileKi, "\n")
+    }
+
     fileDown = c(fileDown, fileKi)
     if (t %% 10 == 0) Sys.sleep(abs(rnorm(1, mean = 8, sd = 3)))
   }
